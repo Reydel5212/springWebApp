@@ -1,7 +1,0 @@
-
-
-
-
-#flex
-
-nigger
