@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<style>
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>All peoples</title>
+</head>
+<body>
+
+    <div th:each="person : ${people}">
+        <a th:href = "@{/people/{id}(id=${person.getId()})}" th:text="${person.getName()}">user</a>
+    </div><br>
+    <a href="people/new"/>CREATE NEW PERSON</a><br>
+    <a th:href="@{/}">BACK</a><br>
+    <a href="/test-batch-update">Go to auto create page</a><br>
+    <a href="/admin">go to admin panel</a>
+</body>
+</html>
