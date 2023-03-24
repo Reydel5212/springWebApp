@@ -1,20 +1,30 @@
 package org.webapp.models;
 
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Entity
+@Table(name = "person")
 public class person {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     @NotEmpty(message = "Name should not be empty")
     @Size(min= 2, max = 30, message = "Name should be between 2 and 30")
     private String name;
 
+    @Column(name = "age")
     @Min(value = 0, message = "age should be greater than 0")
     @Max(value = 100, message = "age should be down than 100")
     private int age;
+    @Column(name = "email")
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email should be Valid")
     private String email;
+    @Column(name = "address")
     @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}", message = "You address should be in this format: Country, City, Post-index(6 digitals)")
     private String address;
 

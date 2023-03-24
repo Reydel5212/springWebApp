@@ -1,10 +1,14 @@
 package org.webapp.dao;
 
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.webapp.models.person;
 
 
@@ -16,45 +20,50 @@ import java.util.Optional;
 @Component
 public class personDAO {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
-    public personDAO(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
+    @Autowired
+    public personDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public List<person> index(){
-        return jdbcTemplate.query("SELECT * FROM person",new BeanPropertyRowMapper<>(person.class));
+    @Transactional(readOnly = true)
+    public List<person> index() {
+        Session session = sessionFactory.getCurrentSession();
+
+        List<person> people = session.createQuery("select s from person s", person.class).getResultList();
+        return people;
     }
+
     //email valid checker
-    public Optional<person> show(String email){
-        return jdbcTemplate.query("SELECT * FROM person WHERE email = ?", new Object[] {email},
-                new BeanPropertyRowMapper<>(person.class)).stream().findAny();
+    public Optional<person> show(String email) {
+        return null;
     }
 
-    public person show(int id){
-        return jdbcTemplate.query("SELECT * FROM person WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(person.class))
-                .stream().findAny().orElse(null);
+    public person show(int id) {
+        return null;
     }
+
     //person creator
-    public void save(person person){
-        jdbcTemplate.update("INSERT INTO person(name,age,email,address) VALUES (?,?,?,?)",person.getName(),person.getAge(),
-                person.getEmail(),person.getAddress());
+    public void save(person person) {
+
     }
+
     //person update
-    public void update(int id, person updatedPerson){
-        jdbcTemplate.update("UPDATE person SET name=?,age=?,email=?,address=? WHERE id = ?",updatedPerson.getName(),updatedPerson.getAge(),
-                updatedPerson.getEmail(),updatedPerson.getAddress(), id);
+    public void update(int id, person updatedPerson) {
+
     }
+
     //person del
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM person WHERE id=?",id);
+
     }
 
-
+}
     /////Test Batch update --->
 
 
-
+/*
     public void testBatchUpdate(){
         List<person> people = create100people();
         long before = System.currentTimeMillis();
@@ -111,3 +120,4 @@ public class personDAO {
     }
 
 }
+*/

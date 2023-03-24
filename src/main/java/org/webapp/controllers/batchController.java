@@ -22,7 +22,7 @@ public class batchController {
     public String index(){
         return "batch/index";
     }
-
+/*
     @GetMapping("/with")
     public String withBatch(){
         personDAO.testBatchUpdate();
@@ -33,5 +33,5 @@ public class batchController {
         personDAO.testBatchDelete();
         return "redirect:/people";
     }
-
+*/
 }
