@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.webapp.models.person;
 //import org.webapp.util.personValidator;
+import org.webapp.services.peopleService;
 
 import javax.validation.Valid;
 
@@ -17,23 +18,22 @@ import javax.validation.Valid;
 @RequestMapping("/people")
 public class peopleController {
 
-    private final personDAO personDAO;
+    private final peopleService peopleService;
 
 
     @Autowired
-    public peopleController(personDAO personDAO){
-        this.personDAO = personDAO;
-
+    public peopleController(peopleService peopleService){
+        this.peopleService = peopleService;
     }
 
     @GetMapping()
     public String index(Model model){
-        model.addAttribute("people",personDAO.index());
+        model.addAttribute("people", peopleService.findAll());
         return "people/index";
     }
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
-        model.addAttribute("person",personDAO.show(id));
+        model.addAttribute("person", peopleService.findOne(id));
         return "people/show";
     }
 
@@ -50,13 +50,13 @@ public class peopleController {
         if (bindingResult.hasErrors()){
             return "/people/new";
         }
-        personDAO.save(person);
+        peopleService.save(person);
         return "redirect:/people";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model,@PathVariable("id") int id){
-        model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("person", peopleService.findOne(id));
         return "people/edit";
     }
 
@@ -67,13 +67,13 @@ public class peopleController {
         if(bindingResult.hasErrors()){
             return "/people/edit";
         }
-        personDAO.update(id,person);
+        peopleService.update(id,person);
         return "redirect:/people/{id}";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        personDAO.delete(id);
+        peopleService.delete(id);
         return "redirect:/people";
     }
 
