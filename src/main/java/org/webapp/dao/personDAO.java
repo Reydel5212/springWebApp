@@ -31,8 +31,9 @@ public class personDAO {
     public List<person> index() {
         Session session = sessionFactory.getCurrentSession();
 
-        List<person> people = session.createQuery("select s from person s", person.class).getResultList();
-        return people;
+
+        return session.createQuery("select p from person p", person.class).getResultList();
+
     }
 
     //email valid checker
