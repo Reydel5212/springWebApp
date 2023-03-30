@@ -37,26 +37,40 @@ public class personDAO {
     }
 
     //email valid checker
-    public Optional<person> show(String email) {
-        return null;
-    }
+//    public Optional<person> show(String email) {
+//        return null;
+//    }
 
+    @Transactional(readOnly = true)
     public person show(int id) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(person.class,id);
     }
 
     //person creator
+    @Transactional
     public void save(person person) {
-
+        Session session = sessionFactory.getCurrentSession();
+        session.save(person);
     }
 
     //person update
+    @Transactional
     public void update(int id, person updatedPerson) {
+        Session session = sessionFactory.getCurrentSession();
+        person personToBeUpdated = session.get(person.class, id);
 
+        personToBeUpdated.setName(updatedPerson.getName());
+        personToBeUpdated.setAge(updatedPerson.getAge());
+        personToBeUpdated.setEmail(updatedPerson.getEmail());
+        personToBeUpdated.setAddress(updatedPerson.getAddress());
     }
 
     //person del
+    @Transactional
     public void delete(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(session.get(person.class, id));
 
     }
 

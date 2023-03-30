@@ -76,4 +76,15 @@ public class person {
     public String getAddress(){
         return address;
     }
+
+    @Override
+    public String toString() {
+        return "Person{"+
+                "id= "+id+
+                "name= "+name+
+                "age= "+age+
+                "email= "+email+
+                "address= "+address+
+                "}";
+    }
 }
