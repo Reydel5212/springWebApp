@@ -1,6 +1,5 @@
 package org.webapp.config;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -9,9 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -30,15 +26,14 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan("org.webapp")
+@PropertySource("classpath:hibernate.properties")
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories("org.webapp.repositories")
-@PropertySource("classpath:hibernate.properties")
 public class springConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
     private final Environment environment;
-
 
     @Autowired
     public springConfig(ApplicationContext applicationContext, Environment environment) {
@@ -61,6 +56,7 @@ public class springConfig implements WebMvcConfigurer {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
+
         return templateEngine;
     }
 
@@ -82,10 +78,6 @@ public class springConfig implements WebMvcConfigurer {
 
         return dataSource;
     }
-//    @Bean
-//    public JdbcTemplate jdbcTemplate(){
-//        return new JdbcTemplate(dataSource());
-//    }
 
     private Properties hibernateProperties(){
         Properties properties = new Properties();
@@ -95,15 +87,6 @@ public class springConfig implements WebMvcConfigurer {
         return properties;
     }
 
-//    @Bean
-//    public LocalSessionFactoryBean sessionFactory(){
-//        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-//        sessionFactoryBean.setDataSource(dataSource());
-//        sessionFactoryBean.setPackagesToScan("org.webapp.models");
-//        sessionFactoryBean.setHibernateProperties(hibernateProperties());
-//
-//        return sessionFactoryBean;
-//    }
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -117,16 +100,11 @@ public class springConfig implements WebMvcConfigurer {
         return em;
     }
 
-
     @Bean
     public PlatformTransactionManager transactionManager(){
-//        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-//        transactionManager.setSessionFactory(sessionFactory().getObject());
-
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return transactionManager;
     }
-
 }

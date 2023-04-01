@@ -23,8 +23,6 @@ public class mySpringMvcDispetcherServletInit extends AbstractAnnotationConfigDi
         return new String[]{"/"};
     };
 
-
-
     @Override
     public void onStartup(ServletContext aServletContext) throws ServletException {
         super.onStartup(aServletContext);
