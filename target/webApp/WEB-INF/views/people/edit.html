@@ -1,39 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Update person</title>
+    <title>Update page</title>
 </head>
-<body>
+
 <style>
     .error{
         color: red;
     }
 </style>
 
-<form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
-    <!--Name-->
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/><br/>
-    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">Name error</div>
-    <!--Age-->
-    <label for="name">Enter age: </label>
-    <input type="text" th:field="*{age}" id="age"/><br>
-    <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error">Name error</div>
-    <!--Email-->
-    <label for="name">Enter email: </label>
-    <input type="text" th:field="*{email}" id="email"/><br>
-    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error">Name error</div>
-    <!--Address-->
-    <label for="name">Enter address: </label>
-    <input type="text" th:field="*{address}" id="address"/><br>
-    <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error">Name error</div>
-    <!--Button-->
-    <input type="submit" value="UPDATE"/>
+<body>
+    <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+        <!--Name-->
+        <label for="name">Enter name: </label>
+        <input type="text" th:field="*{name}" id="name"/><br/>
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">Name error</div>
 
-</form>
-    <a th:href="@{/people}" >BACK</a>
+        <!--Age-->
+        <label for="age">Enter age: </label>
+        <input type="text" th:field="*{age}" id="age"/><br>
+        <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error">Name error</div>
 
+        <!--Birthday-->
+        <label for="birthday">Enter birthday (dd/mm/yyyy): </label>
+        <input type="text" th:field="*{birthday}" id="birthday"/><br>
+        <div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="error">Name error</div>
+
+        <!--Email-->
+        <label for="name">Enter email: </label>
+        <input type="text" th:field="*{email}" id="email"/><br>
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error">Name error</div>
+
+        <!--Address-->
+        <label for="name">Enter address: </label>
+        <input type="text" th:field="*{address}" id="address"/><br>
+        <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error">Name error</div><br>
+
+        <!--Button-->
+        <input type="submit" value="Update"/>
+    </form>
+
+        <a th:href="@{/people}" >Go back</a>
 </body>
+
 </html>

@@ -23,7 +23,7 @@ public class adminController {
     public String adminPage(Model model, @ModelAttribute("person") person person){
         model.addAttribute("people", peopleService.findAll());
 
-        return "/adminPage";
+        return "admin/adminPage";
     }
 
     @PostMapping("/add")

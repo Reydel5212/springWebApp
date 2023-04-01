@@ -18,20 +18,29 @@
         <label for="name">Enter name: </label>
         <input type="text" th:field="*{name}" id="name"/><br>
         <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">Name error</div>
+
         <!--Age-->
-        <label for="name">Enter age: </label>
+        <label for="age">Enter age: </label>
         <input type="text" th:field="*{age}" id="age" /><br>
         <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error">Name error</div>
+
+        <!--Birthday-->
+        <label for="birthday">Enter birthday (dd/mm/yyyy): </label>
+        <input type="text" th:field="*{birthday}" id="birthday" /><br>
+        <div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="error">Name error</div>
+
         <!--Email-->
-        <label for="name">Enter email: </label>
+        <label for="email">Enter email: </label>
         <input type="text" th:field="*{email}" id="email" /><br>
         <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error">Name error</div>
-        <!--Email-->
-        <label for="name">Enter address: </label>
+
+        <!--Address-->
+        <label for="address">Enter address: </label>
         <input type="text" th:field="*{address}" id="address" /><br>
-        <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error">Name error</div>
+        <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error">Name error</div><br>
+
         <!--Button-->
-        <input type="submit" value="CREATE"><br>
+        <input type="submit" value="Create"><br>
     </form>
 
     <a th:href="@{/people}">Go back</a>

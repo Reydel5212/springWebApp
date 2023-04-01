@@ -3,18 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>All peoples</title>
+    <title>Admin</title>
 </head>
 
 <body>
     <form th:method="POST" th:action="@{/admin/add}">
         <label for="person">Select person: </label>
         <select th:object="${person}" th:field="*{id}" id="person">
-            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}">
-            </option>
+            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option><br>
         </select>
 
-        <input type="submit" value="set admin">
+        <input type="submit" value="Set">
     </form>
 </body>
 

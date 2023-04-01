@@ -1,7 +1,10 @@
 package org.webapp.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "person")
@@ -21,6 +24,11 @@ public class person {
     @Column(name = "age")
     private int age;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/mm/yyyy")
+    @Column(name = "birthday")
+    private Date birthday;
+
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email should be Valid")
     @Column(name = "email")
@@ -30,13 +38,18 @@ public class person {
     @Column(name = "address")
     private String address;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_date")
+    private Date create_date;
+
     public person(){
 
     }
 
-    public person(String name, int age, String email, String address){
+    public person(String name, int age, Date birthday, String email, String address){
         this.name = name;
         this.age = age;
+        this.birthday = birthday;
         this.email = email;
         this.address = address;
     }
@@ -65,6 +78,10 @@ public class person {
         return age;
     }
 
+    //birthday
+    public void setBirthday(Date birthday) { this.birthday = birthday; }
+    public Date getBirthday() { return birthday; }
+
     //email
     public void setEmail(String email){
         this.email = email;
@@ -80,6 +97,15 @@ public class person {
     public String getAddress(){
         return address;
     }
+
+    //created_day
+    public void setCreate_date(Date create_date){
+        this.create_date = create_date;
+    }
+    public Date getCreate_date(){
+        return create_date;
+    }
+
 
     @Override
     public String toString() {

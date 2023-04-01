@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Main Page</title>
+    <title>Main</title>
 </head>
 
 <body>
-    <a href="/people">go to people page</a>
+    <a href="/people">Go to people page</a>
 </body>
 
 </html>
